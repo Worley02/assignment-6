@@ -10,8 +10,7 @@ let player1 = {
     [0, 0, 0, 0],
     [0, 0, 0, 0],
     [0, 0, 0, 0]
-  ],
-  player1Lives: 3
+  ]
 }
 
 let player2 = {
@@ -22,8 +21,7 @@ let player2 = {
      [0, 0, 0, 0],
      [0, 0, 0, 0],
      [0, 0, 0, 0]
-   ],
-   player2Lives : 3
+   ]
 }
 
 
@@ -63,17 +61,20 @@ gamePlay = (player) => {
     console.log (player2.board[guessX][guessY])
     if (player2.board[guessX][guessY] == 1) {
       alert (`Hit!`)
-      player2.player2Lives--;
+      player2.shipCount--;
       player2.board[guessX][guessY] = 0;
-    }
-    if (player2.player2Lives == 0) {
+    if (player2.shipCount == 0) {
       alert (`${player1.name} is the winner!`)
       player2.board[guessX][guessY] = 0;
       return(winner = player1.name)
-    
     }
-    else if (player2.board[guessX][guessY] !== 1) {
+      else if (player2.shipCount > 0) {
+        play1Game()
+     }
+    }
+    else {
       alert(`Miss!`)
+      play1Game()
     }
      
   }
@@ -84,27 +85,32 @@ gamePlay = (player) => {
     let guessY= parseInt(prompt(`guess a y coordinate 0-4 `));
     console.log (player1.board[guessX][guessY])
     if (player1.board[guessX][guessY] == 1) {
-      alert(`$Hit!`)
-      player1.player1Lives--;
+      alert(`Hit!`)
+      player1.shipCount--;
       player1.board[guessX][guessY] = 0 
-    }
-    if (player1.player1Lives == 0) {
+    if (player1.shipCount == 0) {
       alert (`${player2.name} is the winner!`)
       player1.board [guessX][guessY] = 0;
       return ( winner = player2.name)
     }
-    else if (player1.board[guessX][guessY] !== 1) {
-      alert(`Miss`)
+      else if (player1.shipCount > 0) {
+        play2Game()
     }
-    
   }
- play1Game()
+    else {
+      alert(`Miss`)
+      play2Game()
+    }
+    //play1Game()
+    //play2Game()
+  }
+  play1Game();
   play2Game()
-}
 
   gamePlay()
   console.log( 'The winner is...?', winner)
   return (`Congratulations, ${winner} won the game!`)
+}
 }
 
 const gameResult = battleship()
